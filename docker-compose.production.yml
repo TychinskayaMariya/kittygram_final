@@ -11,18 +11,21 @@ services:
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
+  
   backend:
     image: tychinkamary/kittygram_backend
     env_file: .env
     volumes:
        - static:/backend_static
-       - media:/media
+       - media:/app/media/
+  
   frontend:
     env_file: .env
     image: tychinkamary/kittygram_frontend
     command: cp -r /app/build/. /static/
     volumes:
       - static:/static
+
   gateway:
     image: tychinkamary/kittygram_gateway
     env_file: .env
@@ -30,4 +33,4 @@ services:
       - 9000:80
     volumes:
       - static:/static
-      - media:/media
+      - media:/app/media/
